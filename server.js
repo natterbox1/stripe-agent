@@ -185,7 +185,7 @@ app.post("/create-checkout-session", async (req, res) => {
       subscription_data: {
         metadata: { customerName },
         // Permet au client d'annuler lui-même → déclenche le webhook
-        cancel_at_period_end: false,
+        ,
       },
       success_url: `${process.env.YOUR_DOMAIN}/success.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.YOUR_DOMAIN}/index.html`,
