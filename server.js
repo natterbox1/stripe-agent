@@ -243,3 +243,4 @@ app.listen(PORT, () => {
   console.log(`   ✅ Webhook Secret:    ${process.env.STRIPE_WEBHOOK_SECRET ? "OK" : "❌ MANQUANT"}`);
   console.log(`   ✅ Email configuré:   ${process.env.EMAIL_FROM ? "OK" : "❌ MANQUANT"}\n`);
 });
+
