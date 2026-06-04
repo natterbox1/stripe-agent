@@ -122,26 +122,55 @@ app.post(
 
       // ── Paiement mensuel réussi ──────────────────────────────────────────────
       case "invoice.payment_succeeded": {
-        if (data.billing_reason === "subscription_cycle") {
-          const customer = await stripe.customers.retrieve(data.customer);
-          const amount = (data.amount_paid / 100).toFixed(2);
+        const customer = await stripe.customers.retrieve(data.customer);
+        const amount = (data.amount_paid / 100).toFixed(2);
 
-          await sendEmail({
-            subject: `✅ Paiement reçu — ${customer.email} — $${amount}`,
+        // Email à toi
+        await sendEmail({
+          subject: `✅ Paiement reçu — ${customer.email} — $${amount}`,
+          html: `
+            <h2 style="color:#059669">Paiement reçu !</h2>
+            <p><strong>Client :</strong> ${customer.name || "Inconnu"}</p>
+            <p><strong>Email :</strong> ${customer.email}</p>
+            <p><strong>Montant :</strong> $${amount} USD</p>
+            <p><strong>Raison :</strong> ${data.billing_reason}</p>
+            <p><strong>Invoice :</strong> <a href="${data.hosted_invoice_url}">Voir la facture</a></p>
+          `,
+        });
+
+        // Email de bienvenue au client (seulement au premier paiement)
+        if (data.billing_reason === "subscription_create") {
+          const transporter = require("nodemailer").createTransport({
+            service: "gmail",
+            auth: { user: process.env.EMAIL_FROM, pass: process.env.EMAIL_PASSWORD },
+          });
+          await transporter.sendMail({
+            from: `"Call Agent" <${process.env.EMAIL_FROM}>`,
+            to: customer.email,
+            subject: "Welcome to Call Agent — Next Steps",
             html: `
-              <h2 style="color:#059669">Paiement mensuel reçu !</h2>
-              <p><strong>Client :</strong> ${customer.name || "Inconnu"}</p>
-              <p><strong>Email :</strong> ${customer.email}</p>
-              <p><strong>Montant :</strong> $${amount} USD</p>
-              <p><strong>Invoice :</strong> <a href="${data.hosted_invoice_url}">Voir la facture</a></p>
+              <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:40px;background:#0a0a0a;color:#ffffff;">
+                <h1 style="color:#c9a84c;font-size:24px;">Welcome aboard! 🎉</h1>
+                <p style="color:#cccccc;font-size:16px;">Hi ${customer.name || "there"},</p>
+                <p style="color:#cccccc;">Thank you for subscribing to Call Agent. Your AI voice agent is being set up and will be live within <strong style="color:#ffffff;">3 to 5 business days.</strong></p>
+                <h2 style="color:#c9a84c;font-size:18px;margin-top:32px;">Your Next Step</h2>
+                <p style="color:#cccccc;">Please complete your business intake form so we can build your personalized AI agent:</p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSc-mWKqHCeG1ae4Mp3HYK5YeRuFOVrA4hxJ2O_zp4ErdOjFiQ/viewform?usp=header"
+                   style="display:inline-block;margin:24px 0;padding:14px 32px;background:#c9a84c;color:#000000;text-decoration:none;font-weight:bold;border-radius:4px;font-size:15px;">
+                  Complete Intake Form →
+                </a>
+                <p style="color:#888888;font-size:13px;margin-top:32px;">Once we receive your form, we will contact you within 24 hours to confirm the setup timeline.</p>
+                <p style="color:#888888;font-size:13px;">Questions? Reply to this email.</p>
+                <hr style="border:1px solid #222;margin:32px 0;"/>
+                <p style="color:#555;font-size:12px;">Call Agent · Mathis Lafontaine</p>
+              </div>
             `,
           });
-          console.log(`✅ Paiement reçu: $${amount} de ${customer.email}`);
         }
-        break;
-      }
 
-      // ── Paiement échoué ──────────────────────────────────────────────────────
+        console.log(`✅ Paiement reçu: $${amount} de ${customer.email}`);
+        break;
+      }──────────────────────────────────────────────────────
       case "invoice.payment_failed": {
         const customer = await stripe.customers.retrieve(data.customer);
 
