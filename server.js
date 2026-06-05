@@ -169,8 +169,7 @@ app.post(
         }
 
         console.log(`✅ Paiement reçu: $${amount} de ${customer.email}`);
-        break;
-      }──────────────────────────────────────────────────────
+        break;  }
       case "invoice.payment_failed": {
         const customer = await stripe.customers.retrieve(data.customer);
 
