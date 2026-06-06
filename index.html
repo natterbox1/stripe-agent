@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Call Agent Service — 1 000$/mois</title>
+  <title>Call Agent — AI Voice Service</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -267,7 +267,7 @@
           <div class="price-row">
             <span class="currency">$</span>
             <span class="amount">1 000</span>
-            <span class="period">/ mois</span>
+            <span class="period">/ month</span>
           </div>
           <p class="billing-note">Auto-renews monthly · Cancel anytime after 3 months</p>
         </div>
@@ -326,8 +326,8 @@
 
       err.style.display = 'none';
 
-      if (!name) { showError('Entre ton nom pour continuer.'); return; }
-      if (!email || !email.includes('@')) { showError('Entre un email valide.'); return; }
+      if (!name) { showError('Please enter your name.'); return; }
+      if (!email || !email.includes('@')) { showError('Please enter a valid email.'); return; }
 
       btn.disabled = true;
       btn.textContent = 'Redirection vers Stripe...';
