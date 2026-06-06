@@ -107,7 +107,7 @@
         <div class="details-box">
           <div class="detail-row">
             <span class="detail-label">Amount</span>
-            <span class="detail-value gold">1 000 $ / mois</span>
+            <span class="detail-value gold"> 900 $ / month</span>
           </div>
           <div class="detail-row">
             <span class="detail-label">Renewal</span>
@@ -140,11 +140,11 @@
       const sessionId = params.get('session_id');
 
       if (!sessionId) {
-        alert('Session introuvable. Contacte le support.');
+        alert('Session not found. Please contact support.');
         return;
       }
 
-      btn.textContent = 'Ouverture du portail...';
+      btn.textContent = 'Opening portal...';
       btn.disabled = true;
 
       try {
@@ -157,12 +157,12 @@
         if (data.url) {
           window.location.href = data.url;
         } else {
-          alert('Erreur: ' + (data.error || 'Impossible d\'ouvrir le portail.'));
+          alert('Error: ' + (data.error || 'Unable to open portal.'));
           btn.disabled = false;
-          btn.textContent = 'Gérer mon abonnement →';
+          btn.textContent = 'Manage my subscription →';
         }
       } catch (e) {
-        alert('Erreur de connexion.');
+        alert('Connection error.');
         btn.disabled = false;
         btn.textContent = 'Gérer mon abonnement →';
       }
