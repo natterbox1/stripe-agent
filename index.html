@@ -330,7 +330,7 @@
       if (!email || !email.includes('@')) { showError('Please enter a valid email.'); return; }
 
       btn.disabled = true;
-      btn.textContent = 'Redirection vers Stripe...';
+      btn.textContent = 'Redirecting to Stripe...';
 
       try {
         const res = await fetch('/create-checkout-session', {
@@ -342,14 +342,14 @@
         if (data.url) {
           window.location.href = data.url;
         } else {
-          showError('Erreur: ' + (data.error || 'Impossible de créer la session.'));
+          showError('Error: ' + (data.error || 'Unable to create session.'));
           btn.disabled = false;
-          btn.textContent = 'Commencer l\'abonnement →';
+          btn.textContent = 'Get Started →';
         }
       } catch (e) {
-        showError('Erreur de connexion. Réessaie dans un moment.');
+        showError('Connection error. Please try again.');
         btn.disabled = false;
-        btn.textContent = 'Commencer l\'abonnement →';
+        btn.textContent = 'Get Started →';
       }
     }
 
