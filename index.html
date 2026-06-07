@@ -290,7 +290,16 @@
             <input type="email" id="customerEmail" placeholder="john@yourbusiness.com" />
           </div>
 
+          <div class="form-group" style="display:flex;align-items:flex-start;gap:10px;margin-top:1rem;">
+            <input type="checkbox" id="agreeTerms" style="margin-top:3px;accent-color:#c9a84c;width:16px;height:16px;flex-shrink:0;" />
+            <label for="agreeTerms" style="font-size:0.65rem;color:#6b6560;letter-spacing:0.05em;text-transform:none;margin-bottom:0;">
+              I have read and agree to the <a href="https://docs.google.com/document/d/1FB3PKXN_egN4JBgnlyl8d_JpjBrmZsSi/edit?usp=sharing" target="_blank" style="color:#c9a84c;">Service Agreement</a>. I understand the 3-month minimum commitment.
+            </label>
+          </div>
+
           <button class="btn-pay" id="payBtn" onclick="handleCheckout()">
+            Get Started →
+          </button>
             Get Started →
           </button>
           <p class="error-msg" id="errorMsg"></p>
@@ -326,6 +335,8 @@
 
       err.style.display = 'none';
 
+const agreed = document.getElementById('agreeTerms').checked;
+      if (!agreed) { showError('Please agree to the Service Agreement to continue.'); return; }
       if (!name) { showError('Please enter your name.'); return; }
       if (!email || !email.includes('@')) { showError('Please enter a valid email.'); return; }
 
