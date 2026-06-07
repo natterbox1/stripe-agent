@@ -135,6 +135,7 @@ app.post(
             <p><strong>Montant :</strong> $${amount} USD</p>
             <p><strong>Raison :</strong> ${data.billing_reason}</p>
             <p><strong>Invoice :</strong> <a href="${data.hosted_invoice_url}">Voir la facture</a></p>
+            <p><strong>📃 Service Agreement :</strong> <span style="color:#059669">✅ Accepted by client at time of payment</span></p>
           `,
         });
 
