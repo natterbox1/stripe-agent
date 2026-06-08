@@ -162,6 +162,7 @@ app.post(
                 </a>
                 <p style="color:#888888;font-size:13px;margin-top:32px;">Once we receive your form, we will contact you within 24 hours to confirm the setup timeline.</p>
                 <p style="color:#888888;font-size:13px;">Questions? Reply to this email.</p>
+                <p style="color:#888888;font-size:13px;margin-top:16px;">Need to manage or cancel your subscription? <a href="https://billing.stripe.com/p/login/eVq9AV98Yfrc2hSa9Y5gc00" style="color:#c9a84c;">Access your customer portal →</a></p>
                 <hr style="border:1px solid #222;margin:32px 0;"/>
                 <p style="color:#555;font-size:12px;">Call Agent · Mathis Lafontaine</p>
               </div>
